@@ -16,10 +16,8 @@
 #include <WebServer.h> //for creating web server
 #include <stdint.h>
 //----------------------------------MACROS-----------------------------------------------------//
-#define ADC_OFFSET_ERROR  (-159.75)  //obtained during calibration
-#define ADC_GAIN_ERROR 	(1326.51515151) //obtained during calibration
-#define KALMAN_PROCESS_NOISE   (0)
-#define ADC_SCALE_PIN 34
+#define ADC_OFFSET_ERROR  -159
+#define ADC_GAIN_ERROR (3277/3502)
 //---------------------------------Global Constants---------------------------------------------//
 const float PROCESS_NOISE = 1000; //Just A rough Estimate
 //---------------------------------Global Variables---------------------------------------------//
@@ -33,6 +31,9 @@ const float PROCESS_NOISE = 1000; //Just A rough Estimate
 
 void system_init();
 
+
+
+
 //-----------------------Data Acquisition Fucntions---------------------------------------------//
 //Sets up the adc of 
 /**
@@ -43,11 +44,22 @@ void system_init();
 *@param: predicted_estimate -extrapolated ADC sample.
 */
 
-void kalman(const float input_voltage,const float meas_var,float* predicted_voltage, float* predicted_voltage_variance,float* currrent_var);
+void kalman(const uint16_t measurement, // Measured ADC value
+	   const float* measurement_variance,  // Approximate variance of the measured Value
+	   float* predicted_estimate, // extrapolated estimate
+	   float* predicted_estimate_variance, // estrapolated variance
+	   float* current_estiname_variance, // current estimate
+	   float* process_noise_variance // process noise ( approximated or measured)
+	   );
 
-float get_input(const uint8_t adc_pin_number,float offset, float gain);
+
+float get_adc(uint8_t adc_pin_number, //The ADC pin number from which to read data from
+	      int16_t* offset_error, // The offset error of the ADC determined during calibration
+	      float* gain_error // The gain error of the ADC determined during calibratio process
+	      );
 	  
-float get_weight(const float filtered_adc_value);
+float getweight(float* filtered_adc_value //The final value of ADC approximted with kalman()
+		);
 
 //---------------------------RFID Tag Detecting and Reading Fucntions----------------------------//
 

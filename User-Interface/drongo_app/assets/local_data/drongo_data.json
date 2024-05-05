@@ -1,0 +1,178 @@
+{"drongos": [
+    {
+        "tagID": "AXAD8976",
+        "date": "11-03-2024",
+        "time": "11:13",
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E",
+        "mass": 32.8
+    },
+    {
+        "tagID": "AXAD8977",
+        "date": "12-03-2024",
+        "time": "15:13",
+        "mass": 40.5,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8977",
+        "date": "13-03-2024",
+        "time": "12:40",
+        "mass": 40.1,
+        "longitude": "27,41,15.6,S",
+        "latitude": "23,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8978",
+        "date": "13-03-2024",
+        "time": "10:38",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8979",
+        "date": "14-03-2024",
+        "time": "18:31",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8980",
+        "date": "15-03-2024",
+        "time": "18:01",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8981",
+        "date": "17-03-2024",
+        "time": "12:09",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8982",
+        "date": "18-03-2024",
+        "time": "13:54",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8983",
+        "date": "19-03-2024",
+        "time": "19:47",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8984",
+        "date": "20-03-2024",
+        "time": "19:47",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8985",
+        "date": "21-03-2024",
+        "time": "16:26",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8986",
+        "date": "22-03-2024",
+        "time": "08:19",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8987",
+        "date": "23-03-2024",
+        "time": "09:13",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8988",
+        "date": "24-03-2024",
+        "time": "12:12",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8989",
+        "date": "25-03-2024",
+        "time": "13:41",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8990",
+        "date": "26-03-2024",
+        "time": "15:01",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8991",
+        "date": "27-03-2024",
+        "time": "14:29",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8977",
+        "date": "27-03-2024",
+        "time": "11:13",
+        "mass": 40.1,
+        "longitude": "24,41,15.6,S",
+        "latitude": "19,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8977",
+        "date": "13-03-2024",
+        "time": "12:17",
+        "mass": 40.1,
+        "longitude": "26,27,12.2,S",
+        "latitude": "20,15,43.0,E"
+    },
+    {
+        "tagID": "AXAD8992",
+        "date": "27-03-2024",
+        "time": "21:10",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8993",
+        "date": "28-03-2024",
+        "time": "14:55",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    },
+    {
+        "tagID": "AXAD8994",
+        "date": "29-03-2024",
+        "time": "16:42",
+        "mass": 38.8,
+        "longitude": "25,41,15.6,S",
+        "latitude": "20,14,43.0,E"
+    }
+]}

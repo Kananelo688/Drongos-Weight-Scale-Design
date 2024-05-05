@@ -1,6 +1,6 @@
 # drongo_app
 
-A new Flutter project.
+Flutter IoT Project. Drongo App connects to Scalio device.
 
 ## Getting Started
 

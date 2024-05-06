@@ -1,29 +1,50 @@
+#include <SoftwareSerial.h>
 #include "main.h"
 
+//-------------------------Global Variables------------------------------------//
 
-//testing kalman filter
-int num_measurements = 10;
-const int array[] = {1123,1119,1119,1119,1113,1120,1072,1119,1136,1122};
-void setup() {
-  // put your setup code here, to run once:
+SoftwareSerial RFID(RFID_RX_PIN,RFID_TX_PIN);
+fs::FS &filemanager = LittleFS;
+bool tag_id_read_done = false;
+String tag_id;
+
+//-----------------------------Data acquisition variables-----------------------//
+float vref;
+const float calibration = 1.1;
+measurement_t meas;
+//-------------------------Function Declaration--------------------------------//
+
+char c;
+
+void setup()
+{
   Serial.begin(115200);
-  system_init();
-  Serial.print("Testing Kalman Filter...\n");
+  //RFID.begin(9600); //Start the UART transmission
+  //pinMode(RFID_INTERRUPT_PIN,INPUT_PULLUP);
+  //esp_sleep_enable_ext0_wakeup((gpio_num_t)RFID_INTERRUPT_PIN,LOW);
+  //check();
+  meas = {1,0.005};
+  vref = init_adc();
+ }
+
+
+void loop()
+{
+  float input = get_voltage(ADC_SCALE_PIN,vref,calibration);
+  kalman_filter(input,0.025,&meas,0);
+  Serial.printf("Input Voltage: %f\nFilter Output:%f\n",input,meas.curr_est);
+  delay(1000);
 }
 
-void loop() {
-  float predicted_val = 1.1; //initial estimate
-  float predicted_var = 0.01 + KALMAN_PROCESS_NOISE;
-  float current_var = 0.01;
-  float measure_var = 0.01;
-  for (int i =0; i<num_measurements; i++){
-    float input = get_input(array[i],ADC_OFFSET_ERROR,ADC_GAIN_ERROR);
-    Serial.printf("Current Measurement: %.2f v\n", input);
-    kalman(input,measure_var,&predicted_val, &predicted_var, &current_var);
-    Serial.printf("Extrapolated Measurement: %.2f v\n", predicted_var);
-    delay(1000);
-  }
-   delay(1000);
-  // put your main code here, to run repeatedly:
-
-}
+// void check()
+// {
+//   while (RFID.available() > 0) {
+//     c = RFID.read();
+//     tag_id += c;
+//     //function to continuously get the adc  samples here
+//   }
+//   Serial.println("Card ID : " + tag_id);
+//   delay(2000);
+//   Serial.println("Sleeping...");
+//   esp_deep_sleep_start();
+// }

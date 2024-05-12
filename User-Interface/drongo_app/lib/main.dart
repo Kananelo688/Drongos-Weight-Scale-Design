@@ -1,13 +1,21 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:drongo_app/constants.dart';
 import 'package:drongo_app/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 void main() {
+  // FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);
   runApp(const DrongoApp());
 }
+
+const bool bleOn = false;
+const bool bleConnected = false;
+const bool wifiOn = false;
+const bool wifiConnected = false;
 
 class DrongoApp extends StatefulWidget {
   const DrongoApp({super.key});
@@ -17,6 +25,28 @@ class DrongoApp extends StatefulWidget {
 }
 
 class _DrongoAppState extends State<DrongoApp> {
+  BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
+
+  late StreamSubscription<BluetoothAdapterState> _adapterStateStateSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _adapterStateStateSubscription =
+        FlutterBluePlus.adapterState.listen((state) {
+      _adapterState = state;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _adapterStateStateSubscription.cancel();
+    super.dispose();
+  }
+
   // bool useMaterial3 = true;
   bool esp32Connected = true;
   bool devicePowerOn = true;
@@ -50,31 +80,6 @@ class _DrongoAppState extends State<DrongoApp> {
     return jsonDecode(jsonString);
   }
 
-  // void handleMaterialVersionChange() {
-  //   setState(() {
-  //     useMaterial3 = !useMaterial3;
-  //   });
-  // }
-
-  // void handleColorSelect(int value) {
-  //   setState(() {
-  //     colorSelectionMethod = ColorSelectionMethod.colorSeed;
-  //     colorSelected = ColorSeed.values[value];
-  //   });
-  // }
-
-  // void handleImageSelect(int value) {
-  //   final String url = ColorImageProvider.values[value].url;
-  //   ColorScheme.fromImageProvider(provider: NetworkImage(url))
-  //       .then((newScheme) {
-  //     setState(() {
-  //       colorSelectionMethod = ColorSelectionMethod.image;
-  //       imageSelected = ColorImageProvider.values[value];
-  //       imageColorScheme = newScheme;
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -106,6 +111,33 @@ class _DrongoAppState extends State<DrongoApp> {
     );
   }
 }
+
+// class BluetoothAdapterStateObserver extends NavigatorObserver {
+//   StreamSubscription<BluetoothAdapterState>? _adapterStateSubscription;
+
+//   @override
+//   void didPush(Route route, Route? previousRoute) {
+//     super.didPush(route, previousRoute);
+//     if (route.settings.name == '/DeviceScreen') {
+//       // Start listening to Bluetooth state changes when a new route is pushed
+//       _adapterStateSubscription ??=
+//           FlutterBluePlus.adapterState.listen((state) {
+//         if (state != BluetoothAdapterState.on) {
+//           // Pop the current route if Bluetooth is off
+//           navigator?.pop();
+//         }
+//       });
+//     }
+//   }
+
+//   @override
+//   void didPop(Route route, Route? previousRoute) {
+//     super.didPop(route, previousRoute);
+//     // Cancel the subscription when the route is popped
+//     _adapterStateSubscription?.cancel();
+//     _adapterStateSubscription = null;
+//   }
+// }
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});

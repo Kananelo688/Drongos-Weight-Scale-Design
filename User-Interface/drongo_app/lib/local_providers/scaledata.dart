@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class ScaleData {
   final String tagID;

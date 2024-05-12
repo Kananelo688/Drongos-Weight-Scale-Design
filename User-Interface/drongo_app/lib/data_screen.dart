@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:drongo_app/local_providers/scaledata.dart';
 import 'package:drongo_app/widgets/component_decoration.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const Widget splitter = SizedBox(height: 10);
 

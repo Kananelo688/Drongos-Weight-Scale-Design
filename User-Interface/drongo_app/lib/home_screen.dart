@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:drongo_app/core/utils/icon_image.dart';
 import 'package:drongo_app/data_screen.dart';
+import 'package:drongo_app/home.dart';
 import 'package:drongo_app/local_providers/scaledata.dart';
 // import 'package:drongo_app/widgets/button.dart';
 import 'package:drongo_app/widgets/component_decoration.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
 
 const rowSplitter = SizedBox(width: 20); //rowDivider
 const colSplitter = SizedBox(height: 10); //colDivider
@@ -41,7 +41,7 @@ class HomeListOne extends StatelessWidget {
       const Track(), //Containment
       if (!showSecondList) ...[
         colSplitter,
-        const Data(),
+        const Scale(),
         colSplitter,
         const Track(),
       ],
@@ -226,10 +226,99 @@ class ScaleActions extends StatefulWidget {
 }
 
 class _ScaleActionsState extends State<ScaleActions> {
+  late String bleConnectMessage;
+
   @override
   Widget build(BuildContext context) {
-    return const ComponentDecoration(
-      label: 'Control and monitoring',
+    // Future<void> promptBluetoothConnection() async {
+    //   final result = await showPopupCard<String>(
+    //     context: context,
+    //     builder: (context) {
+    //       return PopupCard(
+    //         shape: RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.circular(8.0),
+    //           side: BorderSide(
+    //             color: Theme.of(context).colorScheme.outlineVariant,
+    //           ),
+    //         ),
+    //         elevation: 18,
+    //         color: Theme.of(context).colorScheme.primary,
+    //         child: const ConnectBluetoothPopupCardDetails(),
+    //       );
+    //     },
+    //     offset: const Offset(-8, 60),
+    //     alignment: Alignment.topRight,
+    //     useSafeArea: true,
+    //   );
+    //   if (result == null) return;
+    //   setState(() {
+    //     bleConnectMessage = result;
+    //   });
+    // }
+
+    void promptBluetoothConnection() {
+      showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Connect to device?'),
+          content: const Text(
+              'Send instructions to Scalio using Bluetooth Low Energy.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            FilledButton(
+              child: const Text('Connect'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+
+    void powerButton() {
+      showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Energy Saving Mode?'),
+          content: const Text('Turn on low power mode.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            FilledButton(
+              child: const Text('Confirm'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+
+    void resetButton() {
+      showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Reset Values?'),
+          content: const Text('Zero scale mass reading.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            FilledButton(
+              child: const Text('Reset'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ComponentDecoration(
+      label: 'Control and monitoring.',
       tooltipMessage:
           'Turn the scale on/off, zero the mass reading, show battery life, connect to the scale\'s web server to transmit data, check the RFID reader, find out more about the application.',
       child: SingleChildScrollView(
@@ -237,10 +326,15 @@ class _ScaleActionsState extends State<ScaleActions> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            ESP32StateButtons(),
+            ESP32StateButtons(
+              powerButton: powerButton,
+            ),
             rowSplitter,
             rowSplitter,
-            ScalingButtons(),
+            ScalingButtons(
+              startPairing: promptBluetoothConnection,
+              resetScale: resetButton,
+            ),
           ],
         ),
       ),
@@ -249,7 +343,12 @@ class _ScaleActionsState extends State<ScaleActions> {
 }
 
 class ESP32StateButtons extends StatelessWidget {
-  const ESP32StateButtons({super.key});
+  const ESP32StateButtons({
+    super.key,
+    required this.powerButton,
+  });
+
+  final void Function() powerButton;
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +359,7 @@ class ESP32StateButtons extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             FilledButton.icon(
-              onPressed: () {},
+              onPressed: powerButton,
               label: const Text('Power'),
               icon: const Icon(Icons.power_settings_new),
               // icon: const Icon(Icons.add),
@@ -284,7 +383,11 @@ class ESP32StateButtons extends StatelessWidget {
 }
 
 class ScalingButtons extends StatelessWidget {
-  const ScalingButtons({super.key});
+  const ScalingButtons(
+      {super.key, required this.startPairing, required this.resetScale});
+
+  final void Function() startPairing;
+  final void Function() resetScale;
 
   @override
   Widget build(BuildContext context) {
@@ -295,15 +398,15 @@ class ScalingButtons extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             FilledButton.icon(
-              onPressed: () {},
-              label: const Text('Reset'),
-              icon: const Icon(Icons.exposure_zero),
+              onPressed: startPairing,
+              label: const Text('Pair'),
+              icon: const Icon(Icons.bluetooth_rounded),
             ),
             colSplitter,
             FilledButton.icon(
-              onPressed: () {},
-              label: const Text('Pair'),
-              icon: const Icon(Icons.wifi_tethering),
+              onPressed: resetScale,
+              label: const Text('Reset'),
+              icon: const Icon(Icons.exposure_zero),
             ),
             colSplitter,
             FilledButton.icon(
@@ -365,7 +468,7 @@ class DataCards extends StatelessWidget {
     // isBright ? schemeView(lightTheme) : schemeView(darkTheme);
     // ]);
     return ComponentDecoration(
-      label: 'Data viewing and sorting',
+      label: 'Data viewing and sorting.',
       tooltipMessage: 'View data collected from Scalio.',
       child: Column(
         children: [
@@ -532,7 +635,7 @@ class _TrackMapViewState extends State<TrackMapView> {
   @override
   Widget build(BuildContext context) {
     return const ComponentDecoration(
-      label: 'Most recent drongo location(s)',
+      label: 'Most recent drongo location(s).',
       tooltipMessage:
           'Track the most recently spotted drongo using previous locations..',
       child: SingleChildScrollView(

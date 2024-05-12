@@ -30,16 +30,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_blue_plus: ^1.32.4
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
   flutter_popup_card: ^0.0.5
   fluid_dialog: ^2.0.0
   flutter_svg: ^2.0.9
   http: ^1.2.0
   url_launcher: ^6.2.6
-
+  plugin_platform_interface: ^2.0.2
+  # flutter_esp_ble_prov: ^0.1.7
+   # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/local_data/drongo_data.json
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -98,4 +100,21 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+  # This section identifies this Flutter project as a plugin project.
+  # The 'pluginClass' specifies the class (in Java, Kotlin, Swift, Objective-C, etc.)
+  # which should be registered in the plugin registry. This is required for
+  # using method channels.
+  # The Android 'package' specifies package in which the registered class is.
+  # This is required for using method channels on Android.
+  # The 'ffiPlugin' specifies that native code should be built and bundled.
+  # This is required for using `dart:ffi`.
+  # All these are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    platforms:
+      android:
+        package: how.virc.flutter_esp_ble_prov
+        pluginClass: FlutterEspBleProvPlugin
+      ios:
+        pluginClass: FlutterEspBleProvPlugin
 

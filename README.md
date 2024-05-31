@@ -1,7 +1,7 @@
 # Drongos-Weight-Scale-Design
 
 ## Overview
-This project aims to streamline the process of measuring and analyzing bird weights in the field. The system comprises a scale, a microcontroller for data acquisition, and a mobile application for real-time data viewing and interaction. The subsystems work together to provide a seamless and efficient solution for ornithological research.
+This project aims to streamline the process of measuring and analysing bird weights in the field. The system comprises a scale, a microcontroller for data acquisition, and a mobile application for real-time data viewing and interaction. The subsystems work together to provide a seamless and efficient solution for ornithological research.
 
 ## Subsystems
 
